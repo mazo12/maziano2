@@ -1,0 +1,1856 @@
+<?php
+ob_start();
+
+$Token = "6529317884:AAFi3xOE7teAS31ObQK3AR8wugP4jInErNs";
+define("API_KEY",$Token);
+function bot($method, $datas=[]){
+$Saied_Botate = "https://api.telegram.org/bot".API_KEY."/".$method;
+$saied_botate = null;
+if(!empty($datas)){
+$boundary = uniqid();
+$saied_botate = buildMultipartData($datas,$boundary);
+$Saied = ['http'=>[
+'header'=>"Content-Type: multipart/form-data; boundary=$boundary\r\n",
+'method'=>'POST',
+'content'=>$saied_botate,
+],];
+}
+if($saied_botate !== null){
+$saied = stream_context_create($Saied);
+$saied_result = file_get_contents($Saied_Botate, false, $saied);
+}else{
+$saied_result = file_get_contents($Saied_Botate);
+}
+if($saied_result === false){
+return "Error: ".error_get_last()['message'];
+}else{
+return json_decode($saied_result);
+}
+}
+// فكشن الاتصال كتابة { @LSaied }
+// تابع جديدنا { @Botate }
+function buildMultipartData($data,$boundary){
+$SaiedData = '';
+foreach($data as $key => $value){
+if($value instanceof CURLFile){
+$fileContents = file_get_contents($value->getFilename());
+$fileName = basename($value->getFilename());
+$fileMimeType = $value->getMimeType();
+$SaiedData .= "--" . $boundary . "\r\n";
+$SaiedData .= 'Content-Disposition: form-data; name="' . $key . '"; filename="' . $fileName . '"' . "\r\n";
+$SaiedData .= 'Content-Type: ' . $fileMimeType . "\r\n\r\n";
+$SaiedData .= $fileContents . "\r\n";
+}else{
+$SaiedData .= "--" . $boundary . "\r\n";
+$SaiedData .= 'Content-Disposition: form-data; name="' . $key . '"' . "\r\n\r\n";
+$SaiedData .= $value . "\r\n";
+}
+}
+$SaiedData .= "--" . $boundary . "--\r\n";
+return $SaiedData;
+}
+// By @LSaied & @Botate
+$update = json_decode(file_get_contents('php://input'));
+$message = $update->message;
+$chat_id = $message->chat->id;
+$text = $message->text;
+
+
+
+
+# Short
+$update = json_decode(file_get_contents("php://input"));
+$message = $update->message;
+$txt = $message->caption;
+$text = $message->text;
+$chat_id = $message->chat->id;
+$from_id = $message->from->id;
+$new = $message->new_chat_members;
+$message_id = $message->message_id;
+$type = $message->chat->type;
+$name = $message->from->first_name;
+if(isset($update->callback_query)){
+$callbackMessage = '';
+var_dump(bot('answerCallbackQuery',[
+'callback_query_id'=>$update->callback_query->id,
+'text'=>$callbackMessage]));
+$up = $update->callback_query;
+$chat_id = $up->message->chat->id;
+$from_id = $up->from->id;
+$user = $up->from->username;
+$name = $up->from->first_name;
+$message_id = $up->message->message_id;
+$data = $up->data;
+}
+$id = $update->inline_query->from->id; 
+$sud = file_get_contents("admin.txt");
+
+$sudo = array("6534780281","00000","00000","$sudo","6534780281");
+//$wathq1 = $sud; 
+$wathq1 = 916165019; 
+mkdir("sudo");
+mkdir("message");
+mkdir("data");
+mkdir("ms");
+mkdir("count");
+mkdir("count/user");
+mkdir("count/admin");
+$START= file_get_contents("data/start.txt");
+$getmes_id = explode("\n", file_get_contents("ms/$message_id.txt"));
+$get_ban=file_get_contents('data/ban.txt');
+$ban =explode("\n",$get_ban);
+/////////////////////
+
+$member = explode("\n",file_get_contents("sudo/member.txt"));
+$cunte = count($member)-1;
+//////////
+
+$amr = file_get_contents("sudo/amr.txt");
+$ch1 = file_get_contents("sudo/ch1.txt");
+$ch2= file_get_contents("sudo/ch2.txt");
+$taf3il = file_get_contents("sudo/tanbih.txt");
+$estgbal = file_get_contents("sudo/estgbal.txt");
+
+ //ايديك
+$reply = $message->reply_to_message->message_id;
+$rep = $message->reply_to_message->forward_from; 
+
+////======================\\\\
+
+if($message){
+$join = file_get_contents("https://api.telegram.org/bot$token/getChatMember?chat_id=$ch1&user_id=$from_id");
+$join2 = file_get_contents("https://api.telegram.org/bot$token/getChatMember?chat_id=$ch2&user_id=$from_id");
+
+if($message && (
+strpos($join,'"status":"left"') 
+or
+strpos($join,'"Bad Request: USER_ID_INVALID"')
+or
+strpos($join,'"Bad Request: user not found"')
+or
+strpos($join,'"ok": false')
+or strpos($join,'"status":"kicked"') or 
+strpos($join2,'"status":"left"') 
+or 
+strpos($join2,'"Bad Request: USER_ID_INVALID"') 
+or 
+strpos($join2,'"Bad Request: user not found"') 
+or
+strpos($join2,'"ok": false') 
+or strpos($join2,'"status":"kicked"'))!== false){
+$ch1=str_replace("@","",$ch1);
+$ch2=str_replace("@","",$ch2);
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'reply_to_message_id'=>$message_id,
+'text'=>"
+⛔️| عذرا عزيزي
+◾| البوت لا يعمل الا اذا قمت بالاشتراك بالقناه
+◾| وعند الغاء الاشتراك فان البوت سوف يتوقف
+
+
+[📨|اضعط للاشتراك في القناة الاولى 💘💌'](https://t.me/$ch1)
+
+[📨|اضعط للاشتراك في القناة الثانية 💘💌'](https://t.me/$ch2)
+",
+'disable_web_page_preview'=>true,
+'parse_mode'=>"markdown",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"• اضغط للاشتراك في القناة الاولى", 'url'=>"https://t.me/$ch1"]],
+[['text'=>"• اضغط للاشتراك في القناة الثانية", 'url'=>"https://t.me/$ch2"]]
+]
+])
+]);
+return false;}}
+
+
+
+
+
+if($update and !in_array($from_id, $member)){
+file_put_contents("sudo/member.txt","$from_id\n",FILE_APPEND);
+
+if($taf3il == "yas" ){
+bot("sendmessage",[
+"chat_id"=>$wathq1,
+"text"=>"- دخل شخص إلى البوت 🚶‍♂
+
+[$name](tg://user?id=$from_id) 
+
+- ايديه $from_id 🆔
+
+---------
+عدد اعضاء بوتك هو : $cunte
+",
+'disable_web_page_preview'=>'true',
+'parse_mode'=>"markdown",
+]);
+}else{
+bot("sendmessage",[
+"chat_id"=>$wathq1,
+"text"=>"",
+]);
+}}
+if($data=="admin"and in_array($from_id, $sudo)){
+bot('EditMessageText',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+"text"=>"👮|  اهلا بك عزيزي المطور اليك قائمة الاوامر الشفافة قم باختيار ",
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'- أوامر قناة الإشتراك الإجباري الأولى 📡1⃣".' ,'callback_data'=>"ula"]],
+
+[['text'=>'- أوامر قناة الإشتراك الإجباري الثانية 📢2⃣".' ,'callback_data'=>"thany"]],
+
+[['text'=>'- عرض قنوات الإشتراك الإجباري 📜".' ,'callback_data'=>"gnoaty"]],
+[['text'=>'- أوامر البيانات الخاصة بالمالك 🗣".' ,'callback_data'=>"atther"]],
+
+[['text'=>'- أوامر الإذاعة 🗣".' ,'callback_data'=>"ethaa"]],
+
+[['text'=>'- عدد المشتركين 👥".' ,'callback_data'=>"memb"]],
+
+[['text'=>'- التنبيه عند دخول أحد للبوت 🚸".' ,'callback_data'=>"tnbeh"]],
+
+[['text'=>'-عدد المحضورين 👥".' ,'callback_data'=>"ban"]],
+
+
+[['text'=>'- استقبال الرسائل من الأعضاء 🔃".' ,'callback_data'=>"estgbal"]],
+[['text'=>'الحمايــــــــــــه 🔒' ,'callback_data'=>"hmaih"]],
+   ] 
+   ])
+]);
+unlink("sudo/amr.txt");
+
+}
+if($text=="م"and in_array($from_id, $sudo)){
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+"text"=>"👮|  اهلا بك عزيزي المطور اليك قائمة الاوامر الشفافة قم باختيار ",
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>'- أوامر قناة الإشتراك الإجباري الأولى 📡1⃣".' ,'callback_data'=>"ula"]],
+
+[['text'=>'- أوامر قناة الإشتراك الإجباري الثانية 📢2⃣".' ,'callback_data'=>"thany"]],
+
+[['text'=>'- عرض قنوات الإشتراك الإجباري 📜".' ,'callback_data'=>"gnoaty"]],
+[['text'=>'- أوامر البيانات الخاصة بالمالك 🗣".' ,'callback_data'=>"atther"]],
+
+[['text'=>'- أوامر الإذاعة 🗣".' ,'callback_data'=>"ethaa"]],
+
+[['text'=>'- عدد المشتركين 👥".' ,'callback_data'=>"memb"]],
+
+[['text'=>'- التنبيه عند دخول أحد للبوت 🚸".' ,'callback_data'=>"tnbeh"]],
+
+[['text'=>'-عدد المحضورين 👥".' ,'callback_data'=>"ban"]],
+
+
+[['text'=>'- استقبال الرسائل من الأعضاء 🔃".' ,'callback_data'=>"estgbal"]],
+[['text'=>'الحمايــــــــــــه 🔒' ,'callback_data'=>"hmaih"]],
+   ] 
+   ])
+]);
+unlink("sudo/amr.txt");
+
+}
+///====قنوات الاشتراك الاجباري ====\\\\
+
+
+if($data == "ula"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- أوامر قناة الإشتراك الإجباري الأولى 📡1⃣".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- وضع قناة 📡✅".' ,'callback_data'=>"ch1"]],
+[['text'=>'- حذف القناة 📡❎".' ,'callback_data'=>"dch1"]],[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]
+])
+]);
+}
+
+if($data == "ch1"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- أرسل معرف القناة الآن Ⓜ️".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- إلغاء ❌".' ,'callback_data'=>"ula"]],
+]])
+]);
+file_put_contents("sudo/amr.txt","ch1");
+}
+if($text and $amr == "ch1" and $from_id == $wathq1){
+bot("sendmessage",[
+"chat_id"=>$chat_id,
+"text"=>'- تم حفظ معرف القناة الاولى بنجاح ✅".
+
+- تأكد من أن البوت أدمن في القناة ليتم تفعيل الإشتراك الإجباري 👨🏻‍✈️".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+file_put_contents("sudo/ch1.txt","$text");
+unlink("sudo/amr.txt");
+}
+if($data == "dch1"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم حذف القناة بنجاح ✅".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+unlink("sudo/amr.txt");
+unlink("sudo/ch1.txt");
+}
+/////////////////2/////////////////
+if($data == "thany"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- أوامر قناة الإشتراك الإجباري الثانية 📢2⃣".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- وضع قناة 📡✅".' ,'callback_data'=>"ch2"]],
+[['text'=>'- حذف القناة 📡❎".' ,'callback_data'=>"dch2"]],[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]
+])
+]);
+}
+if($data == "ch2"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- أرسل معرف القناة الآن Ⓜ️".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- إلغاء ❌".' ,'callback_data'=>"thany"]],
+]])
+]);
+file_put_contents("sudo/amr.txt","ch2");
+}
+if($text and $amr == "ch2" and $from_id == $wathq1){
+bot("sendmessage",[
+"chat_id"=>$chat_id,
+"text"=>'- تم حفظ معرف القناة الثانية بنجاح ✅".
+
+- تأكد من أن البوت أدمن في القناة ليتم تفعيل الإشتراك الإجباري 👨🏻‍✈️".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+file_put_contents("sudo/ch2.txt","$text");
+unlink("sudo/amr.txt");
+}
+if($data == "dch2"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم حذف القناة بنجاح ✅".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+unlink("sudo/amr.txt");
+unlink("sudo/ch2.txt");
+}
+
+
+///////////////3/////////////////
+if($data == "gnoaty"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- هذه هي قائمة قنوات الإشتراك الإجباري 📜".
+
+- القناة الأولى '.$ch1.' 📡".
+
+- القناة الثانية '.$ch2.' 📢".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+unlink("sudo/amr.txt");
+}
+
+///==== الاذاعة  ====\\\\
+
+///==== الاذاعة  ====\\\\
+$memberi = explode("\n",file_get_contents("sudo/member.txt"));
+$cuntei = count($memberi)-1;
+
+if($data == "ethaa"){
+$mim= file_get_contents("sudo/member.txt");
+file_put_contents("sudo/mim.txt","$mim");
+mkdir("ms");
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- أوامــــــــر الإذاعــــــــــــــــة 🗣".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- نشر توجيه ↪️".' ,'callback_data'=>"tawgih"]],
+[['text'=>'-MARKDOWN نشر رسالة 📝".' ,'callback_data'=>"messagem"]],
+[['text'=>'-HTML نشر رسالة 📝".' ,'callback_data'=>"messageh"]],
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]
+])
+]);
+}
+
+
+$miim = explode("\n",file_get_contents("sudo/mim.txt"));
+$cmiim = count($miim)-1;
+/////////////////markdown
+if($data == "messagem"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>"- أرسل رسالتك ليتم نشرها بصيغة markdown رسالة لجميع الأعضاء 📝 
+عدد الاعضاء : $cmiim
+",
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- إلغاء ❌".' ,'callback_data'=>"ethaa"]],
+]])
+]);
+file_put_contents("sudo/amr.txt","messagemark");
+}
+
+if($text and $amr == "messagemark" and in_array($from_id, $sudo)){
+unlink("sudo/amr.txt");
+bot("sendMessage",[
+"chat_id"=>$chat_id,
+"text"=>"$text",
+"message_id"=>$message_id+1,
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true
+]);
+$msg = $message_id+1;
+for($i=0;$i<count($miim);$i++){
+$get =bot('SendMessage', [
+'chat_id' => $miim[$i],
+'text'=>$text,
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true
+]);
+$msg_id = $get->result->message_id;
+file_put_contents("ms/$msg.txt",$miim[$i]."==". $msg_id."\n", FILE_APPEND);
+$str= file_get_contents("sudo/mim.txt");
+$str= str_replace($miim[$i]."\n","",$str);
+file_put_contents("sudo/mim.txt",$str);
+}
+$ms=explode("\n",file_get_contents("ms/$msg.txt"));
+$count= count($ms);
+
+bot("sendMessage",[
+"chat_id"=>$chat_id,
+"text"=>"- تم نشر هذه الرساله 👇
+-----------------------------------
+$text
+-----------------------------------
+لعدد ($count) عضو. * 
+",
+
+"message_id"=>$message_id+1,
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"حذف الرسالة",'callback_data'=>"delelink ".$msg]],
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"ethaa"]],
+]])
+]);
+}
+
+//////////////html
+if($data == "messageh"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- أرسل رسالتك ليتم نشرها بصيغة HTML رسالة لجميع الأعضاء 📝".
+عدد الاعضاء:'.$cmiim,
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- إلغاء ❌".' ,'callback_data'=>"ethaa"]],
+]])
+]);
+file_put_contents("sudo/amr.txt","messagehtml");
+}
+if($text and $amr == "messagehtml" and in_array($from_id, $sudo)){
+unlink("sudo/amr.txt");
+bot("sendMessage",[
+"chat_id"=>$chat_id,
+"text"=>"$text",
+"message_id"=>$message_id+1,
+]);
+$msg = $message_id+1;
+for($i=0;$i<count($miim);$i++){
+$get =bot('SendMessage', [
+'chat_id' => $miim[$i],
+'text'=>$text,
+'parse_mode'=>"html",
+'disable_web_page_preview'=>true
+]);
+$msg_id = $get->result->message_id;
+file_put_contents("ms/$msg.txt",$miim[$i]."==". $msg_id."\n", FILE_APPEND);
+$str= file_get_contents("sudo/mim.txt");
+$str= str_replace($miim[$i]."\n","",$str);
+file_put_contents("sudo/mim.txt",$str);
+}
+$ms=explode("\n",file_get_contents("ms/$msg.txt"));
+$count= count($ms);
+
+bot("sendMessage",[
+"chat_id"=>$chat_id,
+"text"=>"- تم نشر هذه الرساله 👇
+-----------------------------------
+$text
+-----------------------------------
+لعدد ($count) عضو. * 
+",
+'parse_mode'=>"html",
+'disable_web_page_preview'=>true,
+"message_id"=>$message_id+1,
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"حذف الرسالة",'callback_data'=>"delelink ".$msg]],
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"ethaa"]],
+]])
+]);
+}
+////////////توجية
+if($data == "tawgih"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- أرسل رسالتك ليتم نشرها توجيه لجميع الأعضاء ↪️".
+عدد الاعضاء :
+'.$cmiim,
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- إلغاء ❌".' ,'callback_data'=>"ethaa"]],
+]])
+]);
+file_put_contents("sudo/amr.txt","tawgih");
+}
+if($message and $amr == "tawgih" and in_array($from_id, $sudo)){
+unlink("sudo/amr.txt");
+bot('ForwardMessage',[
+	'chat_id'=>$chat_id,
+	'from_chat_id'=>$chat_id,
+"message_id"=>$message_id+1,
+]);
+
+bot("sendMessage",[
+"chat_id"=>$chat_id,
+"text"=>"✅ جاري نشر رسالتك  لجميع الاعضاء  .",
+]);
+$msg = $message_id+1;
+for($i=0;$i<count($miim);$i++){
+$get =bot('ForwardMessage',[
+	'chat_id'=>$miim[$i],
+	'from_chat_id'=>$chat_id,
+	'message_id'=>$message->message_id,
+]);
+$msg_id = $get->result->message_id;
+file_put_contents("ms/$msg.txt",$miim[$i]."==". $msg_id."\n", FILE_APPEND);
+$str= file_get_contents("sudo/mim.txt");
+$str= str_replace($miim[$i]."\n","",$str);
+file_put_contents("sudo/mim.txt",$str);
+}
+$ms=explode("\n",file_get_contents("ms/$msg.txt"));
+$count= count($ms);
+unlink("sudo/amr.txt");
+bot("sendMessage",[
+"chat_id"=>$chat_id,
+"text"=>"تم نشر التوجية بنجاح 
+لعدد ($count) عضو. * 
+",
+"message_id"=>$message_id+1,
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>"حذف الرسالة",'callback_data'=>"delelink ".$msg]],
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"ethaa"]],
+]])
+]);
+}
+
+if (preg_match('/^(delelink) (.*)/s',$data) ) {
+  $data1 = explode(" ",$data);
+  $mesg= $data1['1'];
+  $getmes_id = explode("\n", file_get_contents("ms/$mesg.txt"));
+  
+bot('editmessagetext',[
+'chat_id'=>$chat_id, 
+'text'=>"جاري حذف رسالتك انتضر قليلا 🔎",
+"message_id"=>$message_id,
+]);
+
+for($d=0;$d<count($getmes_id);$d++){
+$ex = explode("==", $getmes_id[$d]);
+$getmes_id1=$ex['1'];
+$getids1=$ex['0'];
+file_get_contents("https://api.telegram.org/bot$token/deleteMessage?chat_id=$getids1&message_id=$getmes_id1");
+}
+unlink("ms/$message_id.txt");
+bot('editmessagetext',[
+'chat_id'=>$chat_id, 
+'text'=>"تم حذف رسالتك لدى كل الاعضاء ☑️",
+"message_id"=>$message_id,
+]);
+}
+
+///==== عدد آعضاء  ====\\\\
+
+if($data == "memb"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- عدد مشتركين البوت هو '.$cuntei.' 👥".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+unlink("sudo/amr.txt");
+}
+$getben = explode("\n",file_get_contents("data/ban.txt"));
+$countben = count($getben)-1;
+if($data == 'ban'){
+bot('answerCallbackQuery',[
+'callback_query_id'=>$update->callback_query->id,
+'message_id'=>$message_id,
+'text'=>'عدد 💎 المحضورين ❌ : ' . $countben,
+ 'show_alert'=>true
+ ]);      
+}
+
+
+if($data == "tnbeh"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- التنبيه عند دخول أحد للبوت 🚸".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- تفعيل التنبيه 🚸✅".' ,'callback_data'=>"tf3il"]],[['text'=>'- تعطيل التنبيه 🚸❎".' ,'callback_data'=>"tatil"]]
+,[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]
+])
+]);
+}
+
+if($data == "tf3il"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم تفعيل تنبيه دخول الأعضاء 🚸✅".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+file_put_contents("sudo/tanbih.txt","yas");
+}
+
+if($data == "tatil"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم تعطيل تنبيه دخول الأعضاء 🚸❎".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+unlink("sudo/tanbih.txt");
+}
+
+/////////////////7////////////////
+if($data == "estgbal"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- استقبال الرسائل من الأعضاء 🔃".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- تفعيل التواصل داخل البوت مع الاعضاء🔃✅".' ,'callback_data'=>"estgbalon"]],
+[['text'=>'- تعطيل التواصل داخل البوت مع الاعضاء🔃❎".' ,'callback_data'=>"estgbaloff"]],
+[['text'=>'مكان الاستقبال ".' ,'callback_data'=>"11111"]],
+[['text'=>'الخاص ".' ,'callback_data'=>"typee"],
+['text'=>'القروب ".' ,'callback_data'=>"supergruope"],
+],
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]
+])
+]);
+}
+
+if($data == "typee"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم التفعيل سيتم ايصال الرسائل الى الخاص 🔃✅".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+file_put_contents("sudo/typee.txt","$from_id");
+}
+
+
+if($data == "supergruope"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'حسننا عزيزي الادمن قم بالذهاب الى قروب الاستقبال وارسل امر 
+/setastgbal
+📝".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- إلغاء ❌".' ,'callback_data'=>"ethaa"]],
+]])
+]);
+file_put_contents("sudo/amr.txt","set");
+}
+if($text=="/setastgbal" and $amr == "set" and in_array($from_id, $sudo)){
+file_put_contents("sudo/amr.txt","");
+bot('sendmessage',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم تحديد هذا القروب ليكون قروبا للاستقبال ".',
+]);
+file_put_contents("sudo/typee.txt","$chat_id");
+}
+if($data == "estgbalon"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم تفعيل توجيه الرسائل 🔃✅".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+file_put_contents("sudo/estgbal.txt","on");
+}
+
+if($data == "estgbaloff"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'- تم تعطيل توجيه الرسائل 🔃❎".',
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- رجوع ↩️".' ,'callback_data'=>"admin"]],
+]])
+]);
+unlink("sudo/amr.txt");
+unlink("sudo/estgbal.txt");
+}
+
+
+if($data == 'atther'){
+
+bot('editMessageText',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+'text'=>'⚙️هلاو مطور هذا القسم الخاص بل التعديل على المعلومات التي تضها في البوت',
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[
+['text'=>'اضافت ترحيب 🗒','callback_data'=>'welc']],
+
+[
+['text'=>'اضافه رساله الرد','callback_data'=>'msrd']
+],
+
+[
+['text'=>'رجوع الى الاوامر','callback_data'=>'admin']
+]
+]    
+])
+]);
+}
+if($data == 'welc'){
+bot('editMessageText',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+'text'=>'ارسل الترحيب الان 🗒',
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>'الغاء ❌','callback_data'=>'atther']]    
+]    
+])
+]);
+file_put_contents("sudo/amr.txt","start");
+}
+
+
+if($message and $amr == "start" and in_array($from_id, $sudo)){
+unlink("sudo/amr.txt");
+bot('sendmessage',[
+	'chat_id'=>$chat_id,
+'text'=>"تم حفظ الترحيب للاعضاء الجدد 
+الترحيب هو : 
+$text
+",
+]);
+file_put_contents("data/start.txt","$text");
+}
+
+
+
+
+
+
+
+
+if($data == 'msrd'){
+bot('editMessageText',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+'text'=>"قم بتحديد رسالة الرد على العضو بعد ان يقوم بارسال رساله لك ....
+",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+[['text'=>'الغاء ❌','callback_data'=>'atther']]    
+]    
+])
+]);
+
+file_put_contents("sudo/amr.txt","msrd");
+}
+
+if($message and $amr == "msrd" and in_array($from_id, $sudo)){
+unlink("sudo/amr.txt");
+bot('sendmessage',[
+	'chat_id'=>$chat_id,
+'text'=>"تم حفظ رسالة الرد 
+رسالة الرد هي  : 
+$text
+",
+]);
+
+file_put_contents("data/msrd.txt","$text");
+}
+
+
+
+
+
+$yppee=file_get_contents("sudo/typee.txt");
+if($yppee==null or $yppee==""){
+$yppee=$wathq1;
+
+}
+$get_ban=file_get_contents('data/ban.txt');
+$ban =explode("\n",$get_ban);
+
+
+
+if($text=="الادمنية" and $from_id == $wathq1 
+){
+unlink("sudo/admins.txt");
+for($h=0;$h<count($adminall);$h++){
+if($adminall[$h] != ""){
+$admin = json_decode(file_get_contents("http://api.telegram.org/bot$token/getChat?chat_id=$adminall[$h]"))->result;
+$from=$adminall[$h];
+$name= $admin->first_name;
+
+$admins="- [$name](tg://user?id=$from) `$from`";
+file_put_contents("sudo/admins.txt","$admins\n",FILE_APPEND);
+
+}}
+
+$admins=file_get_contents("sudo/admins.txt");
+
+
+bot('sendmessage',[
+	'chat_id'=>$chat_id,
+'text'=>"ℹ هذة هي قائمة الادمنية 
+$admins
+",
+'reply_to_message_id'=>$message_id
+,
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+]);
+
+}
+if (preg_match('/^(تنزيل) (.*)/s',$text) and $from_id == $wathq1 
+) 
+{
+$textt = str_replace("تنزيل ","",$text);
+
+$strlen=strlen($textt);
+if($strlen < 12){
+
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>' تم ✅ تنزيل العضو من الادمنية ❌',
+'reply_to_message_id'=>$message_id
+]);
+
+bot('sendMessage',[
+'chat_id'=>$textt,
+'text'=>'تم ✅  تنزيلك من الا دمنية ❌'
+]);
+$bin=file_get_contents('sudo/admin.txt');
+$str = str_replace($textt."\n", '' ,$bin);
+
+file_put_contents('sudo/admin.txt', $str);
+
+}
+}
+
+
+
+///====  الاعضاء  ====\\\\
+$start= file_get_contents("data/start.txt");
+$ainfo= file_get_contents("data/ainfo.txt");
+$chan= file_get_contents("data/chan.txt");
+$law= file_get_contents("data/law.txt");
+$infobot= file_get_contents("data/infobot.txt");
+$msrd= file_get_contents("data/msrd.txt");
+$ph = json_decode(file_get_contents("https://api.telegram.org/bot".API_KEY."/getUserProfilePhotos?user_id=".$from_id."&limit=1"))->result->photos[0][0]->file_id; 
+if($text == "/start"){ 
+if($ph != null){ 
+bot('sendphoto',[ 
+'chat_id'=>$chat_id, 
+'photo'=>$ph, 
+'caption'=>"* 
+◼ مرحبا بك في بوت التواصل الخاص بي . 
+ 
+◼ ارسل ماتريد ارسالة الان . 
+ 
+◼ سيتم تحويلها لي وسوف ارد عليك في اقرب وقت . 
+ 
+*", 
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>"قنواتي ♡","callback_data"=>"qnoate"]],
+[['text'=>"بوتاتي ♡","callback_data"=>"botshms"]], 
+] 
+]) 
+]); 
+}else{ 
+bot('sendmessage',[ 
+'chat_id'=>$chat_id, 
+'text'=>"* 
+◼ مرحبا بك في بوت التواصل الخاص بي . 
+ 
+◼ ارسل ماتريد ارسالة الان . 
+ 
+◼ سيتم تحويلها لي وسوف ارد عليك في اقرب وقت . 
+ 
+*", 
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>"قنواتي ♡","callback_data"=>"qnoate"]],
+[['text'=>"بوتاتي ♡","callback_data"=>"botshms"]], 
+] 
+]) 
+]); 
+} 
+} 
+if($data == 'bchms'){ 
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('editMessage'.$aa,[ 
+'chat_id'=>$chat_id, 
+'message_id'=>$message_id, 
+$aa=>"* 
+◼ مرحبا بك في بوت التواصل الخاص بي . 
+ 
+◼ ارسل ماتريد ارسالة الان . 
+ 
+◼ سيتم تحويلها لي وسوف ارد عليك في اقرب وقت . 
+ 
+*", 
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>"قنواتي ♡","callback_data"=>"qnoate"]],
+[['text'=>"بوتاتي ♡","callback_data"=>"botshms"]], 
+] 
+]) 
+]); 
+} 
+if($data == "qnoate" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*👮 - مرحبا *$name*
+
+- اليك قائمة قنوات همس♡
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ •* ",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>"𝙷𝙼𝚂𓃠 قناة تحديثات البوتات ♡",'url'=>"t.me/botatiiii"]],
+[['text'=>" •♡ آج‌ــ‌๋ـر ♡ . 🍃 ",'url'=>"t.me/ddeneat"]],
+[['text'=>" •♡ مقاطع دينيه قصيره ♡ . 🍃 ",'url'=>"t.me/ddeneati"]],
+[['text'=>" •♡ اسلاميات ♡ . 🍃 ",'url'=>"t.me/zkrhms"]],
+[['text'=>" •♡ قناة الصلاة على النبي ﷺ ♡ . 🍃 ",'url'=>"t.me/sllo3anabe"]],
+[['text'=>"قناتي الخاصه🖤🥀",'url'=>"t.me/hms_00"]],
+[['text'=>" •قناة بصمات همس ♡",'url'=>"t.me/bsmatie"]],
+[['text'=>"♡ قناة مكتبة الكتب 📚",'url'=>"t.me/mktbthms"]],
+[['text'=>"♡ •قناة ملفات واكواد 📁",'url'=>"t.me/hmsfails"]],
+[['text'=>"♡ •قناة ملفات 📁",'url'=>"https://t.me/hmsfils"]],
+[['text'=>"♡ •قناة اكواد 📁",'url'=>"t.me/hmscodes"]],
+[['text'=>"♡ • 🔥قناة اعلانات واثباتات همس 👀",'url'=>"https://t.me/tmoilhms"]],
+[['text'=>"𝙷𝙼𝚂𓃠 مجموعة الدعم ♡ ",'url'=>"t.me/brmjeatt"]],
+[['text'=>"➹𝒅𝒆𝒗 𝙷ٍْ𝙼ٍْ𝚂ْ 𓃠للاستفسار ",'url'=>"t.me/hms_01"]],
+[['text'=>" •بوت التواصل",'url'=>"t.me/Towasolbot"]],
+[['text'=>'♡ BACK ♡ ','callback_data'=>'bchms']],
+]])]);}
+
+
+if($data == "botshms" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*𓃠⁞ مرحبا بك عزيزي *[$name](tg://user?id=$id)*
+𓃠⁞ في قسم البوتات الخدمية المتميزة
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ •*
+",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>'-☆ بوتات الحمايه ♡ ','callback_data'=>'bhmh1']],
+[['text'=>'-☆ البوتات الدينيه ♡ ','callback_data'=>'bhmd2']],
+[['text'=>'-☆ بوتات الالعاب ♡ ','callback_data'=>'bhmg3']],
+[['text'=>'-☆ البوتات الخدميه ♡ ','callback_data'=>'bhmm4']],
+[['text'=>'-☆ قنوات همس ♡ ','callback_data'=>'qnhm5']],
+[['text'=>'-خدمات همس ♡ ','callback_data'=>'3rod911']],
+[['text'=>'𝙱𝙰𝙲𝙺 ➪ ♡ ','callback_data'=>'bchms']],
+]])]);}
+
+if($data == "homee2b" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*
+𓃠 مرحبا بك ياعزيزي *[$name](tg://user?id=$id)* مجددا 
+𓃠 في قسم البوتات الخدمية المتميزة
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ • *
+",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>'-☆ بوتات الحمايه ♡ ','callback_data'=>'bhmh1']],
+[['text'=>'-☆ البوتات الدينيه ♡ ','callback_data'=>'bhmd2']],
+[['text'=>'-☆ بوتات الالعاب ♡ ','callback_data'=>'bhmg3']],
+[['text'=>'-☆ البوتات الخدميه ♡ ','callback_data'=>'bhmm4']],
+[['text'=>'-☆ قنوات همس ♡ ','callback_data'=>'qnhm5']],
+[['text'=>'-خدمات همس ♡ ','callback_data'=>'3rod911']],
+[['text'=>'𝙱𝙰𝙲𝙺 ➪ ♡ ','callback_data'=>'bchms']],
+]])]);}
+
+
+if($data == "bhmh1" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*👮 - مرحبا *[$name](tg://user?id=$id)*
+
+- اليك قائمة بوتات الحماية المجانية والمدفوعة 
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ •* ",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>' 𓃠¦ بوت حماية تمبلر 👮 •','url'=>'t.me/hms_0bot']], 
+[['text'=>' 𓃠¦ بوت حماية بايثون 👮 •','url'=>'t.me/hms_1bot']], 
+[['text'=>' 𓃠¦ بوت حماية php 👮 •','url'=>'t.me/hms1hbot']], 
+[['text'=>'𓃠¦ بوت حماية مع ردود 👮 • ','url'=>'t.me/smsmhmsbot']], 
+[['text'=>' 𓃠¦ بوت الحمايه الاسلامي 👮 •','url'=>'t.me/eslamiccbot']], 
+[['text'=>' 𓃠¦ بوت group♡help 👮 •','url'=>'t.me/hms_gbot']],
+[['text'=>' 🦾𓃠¦ بوت حماية القنوات 👮 •','url'=>'t.me/hmaiachanllbot']], 
+[['text'=>' 𓃠🦾¦ بوت مانع القنوات 👮 •','url'=>'t.me/whoocaresbot']],
+[['text'=>'-☆ قنوات همس ♡ ','callback_data'=>'qnhm5']],
+[['text'=>'-خدمات همس ♡ ','callback_data'=>'3rod911']],
+[['text'=>'-☆ الرجوع الى الاقسام ♡ ','callback_data'=>'homee2b'],['text'=>'𝙱𝙰𝙲𝙺 ➪ ♡','callback_data'=>'bchms']],
+]])]);}
+
+
+if($data == "bhmd2" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*👮 - مرحبا *[$name](tg://user?id=$id)*
+
+- اليك قائمة البوتات الدينيه المجانية والمدفوعة ♡
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ •* ",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>'🌎¦ مصنع القرآن الكريم  • 🌻','url'=>'t.me/mmq1bot']], 
+[['text'=>' ♡¦ بوت القران الكريم 🕋 •','url'=>'t.me/thkker_bot']],
+[['text'=>' ♡¦ بوت دعائي 🕌 •','url'=>'t.me/do3aiebot']], 
+[['text'=>' ♡¦ بوت الموسوعه الدينيه 🌏 •','url'=>'t.me/ddeneatbot']],
+[['text'=>'♡¦ بوت الحديث الشريف 🕌 • ','url'=>'t.me/hddetbot']],
+[['text'=>'♡¦ بوت المكتبة الشاملة  🕌 • ','url'=>'t.me/m_serchbot']],
+[['text'=>'♡¦ بوت الفتوى الاسلامي  🕌 • ','url'=>'t.me/ftwaabot']],
+[['text'=>'🕋 𓃠¦ البوت الخاص بقناة اجر ♡ •','url'=>'t.me/ajjrrbot']],
+[['text'=>'-☆قنوات همس ♡ ','callback_data'=>'qnhm5']],
+[['text'=>'-خدمات همس ♡ ','callback_data'=>'3rod911']],
+[['text'=>'-☆الرجوع الى الاقسام ♡ ','callback_data'=>'homee2b'],['text'=>'𝙱𝙰𝙲𝙺 ➪ ♡','callback_data'=>'bchms']],
+]])]);}
+
+
+if($data == "bhmg3" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*👮 - مرحبا *[$name](tg://user?id=$id)*
+
+- اليك قائمة بوتات الالعاب الترفيهيه المجانية والمدفوعة ♡
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ •* ",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>'⭕️ 𓃠 ❌¦ بوت لعبة اكس او •','url'=>'t.me/xo_hmsbot']],
+[['text'=>'🚼 𓃠¦ بوت لعبة حجرة ورقه مقص •','url'=>'t.me/Oyfobot']], 
+[['text'=>'🕹 𓃠¦ بوت الالعاب انلاين •','url'=>'t.me/g_hmsbot']], 
+[['text'=>'🎗 𓃠¦ بوت كت تويت •','url'=>'t.me/Kttoeetbot']],
+[['text'=>'💸 𓃠¦ بوت لعبة البنك •','url'=>'t.me/ban_kbot']],
+[['text'=>'-قنوات همس ♡ ','callback_data'=>'qnhm5']],
+[['text'=>'-خدمات همس ♡ ','callback_data'=>'3rod911']],
+[['text'=>'الرجوع الى الاقسام ♡ ','callback_data'=>'homee2b'],['text'=>'𝙱𝙰𝙲𝙺 ➪ ♡','callback_data'=>'bchms']],
+]])]);}
+
+
+if($data == "bhmm4" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*
+𓃠 مرحبا بك عزيزي *[$name](tg://user?id=$id)*
+𓃠 في قسم البوتات الاضافية والخدمية
+𓃠 جميع البوتات امنه ومجانية للجميع 
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ • *
+",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>'🌎¦ مصنع البوتات الخدميه • 🎩','url'=>'t.me/hmsmakbot']], 
+[['text'=>'🦾 ¦ بوت دعم القنوات اشتراك اجباري •','url'=>'t.me/estrak_bot']], 
+[['text'=>"♡ بوت الارقام 🔥",'url'=>"t.me/arqamsbot"]],
+[['text'=>'🗳 𓃠¦ بوت صنع لسته شفافه •','url'=>'t.me/Marrkdbot']], 
+[['text'=>'🖊 𓃠¦ بوت ادارة منشورات القناه •','url'=>'t.me/hqooqibot']],
+[['text'=>' 🦾¦ بوت حماية القنوات •','url'=>'t.me/hmaiachanllbot']], 
+[['text'=>'🏆 𓃠¦ بوت ادارة القنوات •','url'=>'t.me/vfbabot']],
+[['text'=>' 🦾¦ بوت مانع القنوات •','url'=>'t.me/whoocaresbot']],
+[['text'=>'🎀𓃠¦ بوت وضع زرار اسم القناه في المنشورات •','url'=>'t.me/set9bot']],
+[['text'=>' 𓃠🎉¦ بوت ساره للتفاعل في المجموعات •','url'=>'t.me/S0S01bot']], 
+[['text'=>'🏙 𓃠¦ بوت مكتبة الكتب •','url'=>'t.me/mktbahbot']], 
+[['text'=>'✨ 𓃠¦ بوت اللايكات •','url'=>'t.me/Liikeii_bot']],
+[['text'=>'🎭 𓃠¦ بوت بحث الويكيبيديا •','url'=>'t.me/wiikebot']], 
+[['text'=>'👑 𓃠¦ بوت سيرفري التعليمي •','url'=>'t.me/servarbot']], 
+[['text'=>'🔬 𓃠¦ بوت الدكتوره همس •','url'=>'t.me/DR_HMSBOT']],
+[['text'=>'🎖𓃠¦ بوت المسابقات • ','url'=>'t.me/mosbgatbot']], 
+[['text'=>'🎮𓃠¦ بوت استخراج معلومات كلاش اوف كلانس •','url'=>'t.me/clash0bot']], 
+[['text'=>'🎌 𓃠¦ بوت تحويل الصيغ •','url'=>'t.me/T70elbot']],
+[['text'=>'✂️ 𓃠¦ بوت اختصار الروابط •','url'=>'t.me/cutturlbot']], 
+[['text'=>'ℹ️ 𓃠¦ بوت حظر المغادرين من القنوات • ','url'=>'t.me/BN60bot']], 
+[['text'=>'🎨 𓃠¦ بوت الزخرفه •','url'=>'t.me/Zhmsbot']], 
+[['text'=>'⭐️ 𓃠¦ بوت استخراج معلومات انستجرام •','url'=>'t.me/infstabot']], 
+[['text'=>'🗣 𓃠¦ بوت الهمسه السريه بالميديا •','url'=>'t.me/wispsbot']], 
+[['text'=>'🔍 𓃠¦ بوت كشف الايدي •','url'=>'t.me/kshfidbot']],
+[['text'=>'💌 𓃠¦ بوت صارحني •','url'=>'t.me/srra7abot']], 
+[['text'=>'🏜 𓃠¦ بوت المتحركات بحث •','url'=>'t.me/gifatbot']], 
+[['text'=>'💯 𓃠¦ بوت فك الحظر •','url'=>'t.me/M7dorbot']], 
+[['text'=>'Ⓜ️ 𓃠¦ بوت تصميم الاسماء عربي •','url'=>'t.me/idetbot']], 
+[['text'=>'📵 𓃠¦ بوت حذف الحسابات •','url'=>'t.me/d_accubot']],
+[['text'=>'♻️ 𓃠¦ بوت الويب هوك •','url'=>'t.me/webhmsbot']], 
+[['text'=>'⏰ 𓃠¦ بوت الساعه في بايو القنوات •','url'=>'t.me/baiyobot']], 
+[['text'=>'🎤 𓃠¦ بوت تحويل النص الى صوت •','url'=>'t.me/SS609bot']],
+[['text'=>'🤖 𓃠¦ بوت الفاصله •','url'=>'t.me/hyphnbot']], 
+[['text'=>'🖼 𓃠¦ بوت صنع الملصقات •','url'=>'t.me/Ctichbot']],
+[['text'=>'📱 𓃠¦ بوت بحث التطبيقات •','url'=>'t.me/mtjgrbot']],
+[['text'=>'🌎𓃠¦ بوت البحث الجديد • ','url'=>'t.me/gserchbot']],
+[['text'=>' 💬𓃠¦ بوت التعليقات •','url'=>'t.me/t3llegatbot']],
+[['text'=>'♻️𓃠¦  بوت صنع بروكسيات • ','url'=>'t.me/pr0xebot']],
+[['text'=>'📤 𓃠¦ بوت التشفير الخاص •','url'=>'t.me/sh_h1bot']],
+[['text'=>'🔞 𓃠¦ بوت منع الاباحي •','url'=>'t.me/EBA7BOT']],
+[['text'=>'🆕 𓃠¦ بوت تحويل الصور الى pdf •','url'=>'t.me/pdfhmsbot']],
+[['text'=>'🎗 𓃠¦ بوت ميكساتي •','url'=>'t.me/mixatibot']],
+[['text'=>'♡¦ بوت البصمات اهداء  🎧 • ','url'=>'t.me/bsmhbot']],
+[['text'=>'♡¦ بوت التاك للكل 🫥• ','url'=>'t.me/htaklbot']],
+[['text'=>'♡¦ بوت الاعلانات 📣• ','url'=>'t.me/e33lanbot']],
+[['text'=>" •♡ همس فلورز بوت ♡ .🌸 ",'url'=>"t.me/Rshgbot"]],
+[['text'=>"♡ بوت تخمين وصنع يوزرات 🏅",'url'=>"t.me/t7menbot"]],
+[['text'=>"♡ بوت صنع ايميل وهمي 📬",'url'=>"t.me/ffakkmillbot"]],
+[['text'=>'🕋 𓃠¦ البوت الخاص بقناة اجر ♡ •','url'=>'t.me/ajjrrbot']],
+[['text'=>'🌎¦ بوت البرمجة الذكي   • 🐼','url'=>'t.me/broggrbot']], 
+[['text'=>'-قنوات همس ♡ ','callback_data'=>'qnhm5c']],
+[['text'=>'-خدمات همس ♡ ','callback_data'=>'3rod911']],
+[['text'=>'الرجوع الى الاقسام ♡ ','callback_data'=>'homee2b'],['text'=>'𝙱𝙰𝙲𝙺 ➪ ♡','callback_data'=>'bchms']],
+]])]);}
+
+if($data == "qnhm5" ){
+if($ph != null){ 
+$aa = "caption"; 
+} else { 
+$aa = "text"; 
+} 
+bot('EditMessage'.$aa,[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id,
+$aa=>"*👮 - مرحبا *[$name](tg://user?id=$id)*
+
+- اليك قائمة قنوات همس♡
+
+ • ┉ • ┉ • 𝙷𝙼𝚂𓃠• ┉ • ┉ •* ",
+'parse_mode'=>"markdown",'disable_web_page_preview'=>true,
+"reply_markup"=>json_encode([
+"inline_keyboard"=>[
+[['text'=>"𝙷𝙼𝚂𓃠 قناة تحديثات البوتات ♡",'url'=>"t.me/botatiiii"]],
+[['text'=>" •♡ آج‌ــ‌๋ـر ♡ . 🍃 ",'url'=>"t.me/ddeneat"]],
+[['text'=>" •♡ مقاطع دينيه قصيره ♡ . 🍃 ",'url'=>"t.me/ddeneati"]],
+[['text'=>"قناتي الخاصه🖤🥀",'url'=>"t.me/hms_00"]],
+[['text'=>" •قناة بصمات همس ♡",'url'=>"t.me/bsmatie"]],
+[['text'=>"♡ قناة مكتبة الكتب 📚",'url'=>"t.me/mktbthms"]],
+[['text'=>"♡ •قناة ملفات واكواد 📁",'url'=>"t.me/hmsfails"]],
+[['text'=>"𝙷𝙼𝚂𓃠 مجموعة الدعم ♡ ",'url'=>"t.me/brmjeatt"]],
+[['text'=>"➹𝒅𝒆𝒗 𝙷ٍْ𝙼ٍْ𝚂ْ 𓃠للاستفسار ",'url'=>"t.me/hms_01"]],
+[['text'=>" •بوت التواصل",'url'=>"t.me/Towasolbot"]],
+[['text'=>'الرجوع الى الاقسام ♡ ','callback_data'=>'homee2b'],['text'=>'𝙱𝙰𝙲𝙺 ➪ ♡','callback_data'=>'bchms']],
+]])]);}
+
+$yppee=file_get_contents("sudo/typee.txt");
+if($yppee==null or $yppee==""){
+$yppee=$wathq1;
+
+}
+
+$co_m_all=file_get_contents("count/user/all.txt");
+$co1=$co_m_all+1;
+
+
+
+$repp=$message->reply_to_message->message_id-1;
+$msg=explode("=",file_get_contents("message/$repp.txt"));
+
+$get_ban=file_get_contents('data/ban.txt');
+$get_ban=file_get_contents('data/ban.txt');
+$ban =explode("\n",$get_ban);
+if($text){
+
+if($text != '/start' and $text != 'جهة اتصال المدير☎️' and $text != '⚜️〽️┇قناه البوت' and $text != 'ارفعني' and $text != 'القوانين ⚠️' and $text != 'معلومات المدير 📋' and   $text !='المساعده 💡' and $text !='اطلب بوتك من المطور' and $message->chat->type == 'private' and $from_id != $wathq1 ){
+if(!in_array($from_id, $ban)){
+if($estgbal=="on" or $estgbal==null){
+bot('sendMessage',[
+'chat_id'=>$yppee,
+'text'=>"رساله من : [$name](tg://user?id=$from_id)
+",
+'reply_to_message_id'=>$message->reply_to_message->message_id-1,
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+
+]);
+
+$get= bot('forwardMessage',[
+'chat_id'=>$yppee,
+'from_chat_id'=>$chat_id,
+'message_id'=>$message_id,
+
+]);
+$msg_id = $get->result->message_id-1;
+
+$from_id_name="$chat_id=$name=$message_id";
+file_put_contents("message/$msg_id.txt","$from_id_name");
+
+$co_m_us=file_get_contents("count/user/$from_id.txt");
+$co=$co_m_us+1;
+file_put_contents("count/user/$from_id.txt","$co");
+
+
+file_put_contents("count/user/all.txt","$co1");
+
+
+if($msrd !=null){
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"$msrd ــــ ",
+'reply_to_message_id'=>$message_id
+]);
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"*
+تم ارسال الرسالة ساقوم بالرد باقرب وقت ان شاء الله 🌸
+
+*",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[[['text'=>"قناة التحديثات 𓃠","url"=>"t.me/botatiiii"]]
+]
+])
+]);
+}
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"تم ايقاف استقبال الرسائل من قبل مالك البوت ",
+'reply_to_message_id'=>$message_id
+]);
+}
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"❌ المعذرة لا تستطيع ارسال الرسائل انت محظور ",
+'reply_to_message_id'=>$message_id
+]);
+}
+}}
+
+
+$photo=$message->photo;
+$video=$message->video;
+$document=$message->document;
+$sticker=$message->sticker;
+$voice=$message->voice;
+$audio=$message->audio;
+
+$n_id =$msg['1'];
+if($reply and $text != 'الغاء الحظر' and $text != 'حظر' and $text != 'معلومات' and $chat_id == $yppee  
+and $n_id!= null){
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+if($text){
+$get=bot('sendMessage',[
+'chat_id'=>$msg['0'],
+'text'=>$text,    
+'reply_to_message_id'=>$msg['2'],
+
+]);
+$msg_id = $get->result->message_id;
+}else{
+
+if($photo){
+$sens="sendphoto";
+$file_id = $update->message->photo[1]->file_id;
+}
+if($document){
+$sens="senddocument";
+$file_id = $update->message->document->file_id;
+}
+if($video){
+$sens="sendvideo";
+$file_id = $update->message->video->file_id;
+}
+
+if($audio){
+$sens="sendaudio";
+$file_id = $update->message->audio->file_id;
+}
+
+if($voice){
+$sens="sendvoice";
+$file_id = $update->message->voice->file_id;
+}
+
+if($sticker){
+$sens="sendsticker";
+$file_id = $update->message->sticker->file_id;
+}
+
+$ss=str_replace("send","",$sens);
+$get1=bot($sens,[
+"chat_id"=>$msg['0'],
+"$ss"=>"$file_id",
+'caption'=>"$getfull",
+'reply_to_message_id'=>$msg['2'],
+]);
+
+$msg_id = $get->result->message_id;
+}
+
+$ch_id =$msg['0'];
+$name_id =$msg['1'];
+$wathqid="$ch_id=$msg_id=$name_id";
+file_put_contents("message/$msg_id.txt","$wathqid");
+
+$co_m_ad=file_get_contents("count/admin/$ch_id.txt");
+$co=$co_m_ad+1;
+file_put_contents("count/admin/$ch_id.txt","$co");
+
+$co_m_all=file_get_contents("count/admin/all.txt");
+$coo=$co_m_all+1;
+file_put_contents("count/admin/all.txt","$coo");
+bot('sendmessage',[
+'chat_id'=>$yppee,
+'text'=>"
+◾ تم الارسال لـ [$name_id](tg://user?id=$ch_id) بنجاح .
+",
+'reply_to_message_id'=>$message_id
+,'parse_mode'=>"MarkDown",
+
+'disable_web_page_preview'=>true,
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>"◾ تعديل الرسالة .",'callback_data'=>"edit_msg ".$msg_id],
+['text'=>"◾ حذف الرسالة .",'callback_data'=>"del_msg ".$msg_id]],
+]
+])
+]);
+}}
+
+if (preg_match('/^(del_msg) (.*)/s',$data) ) {
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+  $data1 = explode(" ",$data);
+  $wathqid= $data1['1'];
+$info=explode("=",file_get_contents("message/$wathqid.txt"));
+
+  $ch_id= $info['0'];
+  $msg_id= $info['1'];
+  $name_id =$info['2'];
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>"
+◾ تم حذف الرسالة لـ [$name_id](tg://user?id=$ch_id) بنجاح
+
+",
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+]);
+bot('deleteMessage',[
+'chat_id'=>$ch_id,
+'message_id'=>$msg_id,
+]);
+  }
+}
+if (preg_match('/^(edit_msg) (.*)/s',$data) ) {
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+$data1 = explode(" ",$data);
+  $wathqid= $data1['1'];
+$info=explode("=",file_get_contents("message/$wathqid.txt"));
+
+  $ch_id= $info['0'];
+  $msg_id= $info['1'];
+  $name_id =$info['2'];
+  file_put_contents("data/t3dil.txt","$ch_id=$msg_id=$name_id");
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>"
+◾ قم بارسال رسالتك الجديده ليتم تعديل الرسالة السابقه لدى [$name_id](tg://user?id=$ch_id)  .
+",
+'reply_to_message_id'=>$message_id
+,'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+ 'reply_markup'=>json_encode([ 
+      'inline_keyboard'=>[
+[['text'=>'- إلغاء ❌".' ,'callback_data'=>"trag3"]],
+]])
+]);
+file_put_contents("sudo/amr.txt","edit");
+  }
+}
+if($data == "trag3"){
+bot('EditMessageText',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>'تم الغاء التعديل بنجاح".',
+]);
+file_put_contents("sudo/amr.txt","");
+file_put_contents("data/t3dil.txt","");
+}
+if($text and $amr == "edit" and $chat_id== $yppee){
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+file_put_contents("sudo/amr.txt","");
+$wathqget=file_get_contents("data/t3dil.txt");
+
+  $wathqidd = explode("=",$wathqget);
+  $ch_id= $wathqidd['0'];
+  $msg_id= $wathqidd['1'];
+  $name_id =$wathqidd['2'];
+  bot('deleteMessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id-2,
+]);
+bot('deleteMessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$message_id-1,
+]);
+
+bot('sendmessage',[
+    'chat_id'=>$chat_id,
+    'message_id'=>$message_id,
+'text'=>"- ✅ تم التعديل الرسالة لـ [$name_id](tg://user?id=$ch_id) بنجاح .",
+'reply_to_message_id'=>$message_id
+,'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+'reply_markup'=>json_encode([ 
+'inline_keyboard'=>[
+[['text'=>"◾ تعديل الرسالة .",'callback_data'=>"edit_msg ".$msg_id],
+['text'=>"◾ حذف الرسالة .",'callback_data'=>"del_msg ".$msg_id]],
+]
+])
+]);
+file_put_contents("data/t3dil.txt","");
+bot('EditMessageText',[
+    'chat_id'=>$ch_id,
+    'message_id'=>$msg_id,
+    'text'=>
+$text,
+]);
+}}
+
+if (preg_match('/^(حظر) (.*)/s',$text) and $chat_id == $yppee ) {
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+$textt = str_replace("حظر ","",$text);
+$textt = str_replace(" ","",$text);
+$strlen=strlen($textt);
+if($strlen < 10){
+if(!in_array($textt, $ban)){
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>'تم ✅ حضر العضو 🚹',
+'reply_to_message_id'=>$message_id
+]);
+
+bot('sendMessage',[
+'chat_id'=>$textt,
+'text'=>'تم ✅ حضرك من البوت ❌',
+]);
+file_put_contents('data/ban.txt', $textt. "\n", FILE_APPEND);
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>' العضو محظور مسبقا🚫 🚹',
+'reply_to_message_id'=>$message_id
+]);
+}
+}}
+}
+if (preg_match('/^(الغاء حظر) (.*)/s',$text) and $chat_id == $yppee ) {
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+$textt = str_replace("الغاء حظر ","",$text);
+$textt = str_replace(" ","",$text);
+$strlen=strlen($textt);
+if($strlen < 10){
+if(in_array($textt, $ban)){
+
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>'تم ✅ الغاء حضر العضو ❌',
+'reply_to_message_id'=>$message_id
+]);
+
+bot('sendMessage',[
+'chat_id'=>$textt,
+'text'=>'تم ✅ الغاء حضرك ❌'
+]);
+$bin=file_get_contents('data/ban.txt');
+$str = str_replace($textt."\n", '' ,$bin);
+
+file_put_contents('data/ban.txt', $str);
+
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>' 🚫 العضو ليس محظور 🚹',
+'reply_to_message_id'=>$message_id
+]);
+}}}
+}
+
+
+
+if($reply and $text == 'حظر' and $chat_id == $yppee  and $n_id!= null){
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+//$from = $message->reply_to_message->forward_from->id;
+$from = $msg['0'];
+if(!in_array($from, $ban)){
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>'تم ✅ حضر العضو 🚹',
+'reply_to_message_id'=>$message_id
+]);
+
+bot('sendMessage',[
+'chat_id'=>$from,
+'text'=>'تم ✅ حضرك من البوت ❌',
+]);
+
+file_put_contents('data/ban.txt', $from. "\n", FILE_APPEND);
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>' العضو محظور مسبقا🚫 🚹',
+'reply_to_message_id'=>$message_id
+]);
+}}
+}
+
+if($reply and $text == 'الغاء الحظر' and $chat_id == $yppee and $n_id!= null){
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+//$from = $message->reply_to_message->forward_from->id;
+$from = $msg['0'];
+if(in_array($from, $ban)){
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>'تم ✅ الغاء حضر العضو ❌',
+'reply_to_message_id'=>$message_id
+]);
+
+bot('sendMessage',[
+'chat_id'=>$from,
+'text'=>'تم ✅ الغاء حضرك ❌'
+]);
+
+$bin=file_get_contents('data/ban.txt');
+$str = str_replace($from ."\n", '' ,$bin);
+
+file_put_contents('data/ban.txt', $str);
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>' 🚫 العضو ليس محظور 🚹',
+'reply_to_message_id'=>$message_id,
+]);
+}
+}
+}
+//معلومات الاعضاء 
+if($reply and $text == 'معلومات' and $chat_id == $yppee){
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+//$from = $message->reply_to_message->forward_from->id;
+$from = $msg['0'];
+
+$admin = json_decode(file_get_contents("http://api.telegram.org/bot$token/getChat?chat_id=$from"))->result;
+
+$name= $admin->first_name;
+
+$user= $admin->username;
+
+if(!in_array($from, $ban)){
+
+$info="✅ متفاعل";
+}else{
+$info="🚫 محظور";
+}
+$co_m_us=file_get_contents("count/user/$from.txt");
+$co_m_ad=file_get_contents("count/admin/$from.txt");
+
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"ℹ معلومات العضو 
+~~~~~~~~~~~~~~~~~~~~~~~
+- الاسم : [ $name](tg://user?id=$from)  .
+- الايدي : `$from`
+- المعرف : *@$user*
+- حالة العضو : $info
+- عدد الرسائل المستلمة منة : $co_m_us ✉
+- عدد الرسائل المرسلة لة : $co_m_ad 📬
+
+",
+'reply_to_message_id'=>$message_id,
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+]);
+}
+}
+if( $text == 'معلومات' and !$reply  and $chat_id == $yppee){
+if( in_array($from_id,$sudo)
+or in_array($from_id, $adminall)){
+
+unlink("sudo/admins.txt");
+for($h=0;$h<count($adminall);$h++){
+if($adminall[$h] != ""){
+$admin = json_decode(file_get_contents("http://api.telegram.org/bot$token/getChat?chat_id=$adminall[$h]"))->result;
+$from=$adminall[$h];
+$name= $admin->first_name;
+$c= $h+1;
+$admins="$c - [$name](tg://user?id=$from) `$from`";
+file_put_contents("sudo/admins.txt","$admins\n",FILE_APPEND);
+
+}}
+
+$admins=file_get_contents("sudo/admins.txt");
+
+
+$co_m_us=file_get_contents("count/user/all.txt");
+$co_m_ad=file_get_contents("count/admin/all.txt");
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"ℹ معلومات شاملة عن البوت  
+~~~~~~~~~~~~~~~~~~~~~~~
+👮 - الادمنية : 
+$admins
+--------------------
+👪 - عدد الاعضاء : $cuntei
+🚫 - المحضورين : $countben
+--------------------
+📮 - الرسائل 
+📩 - المستلمة :$co_m_us
+📬 - الصادرة :$co_m_ad
+
+
+",
+'reply_to_message_id'=>$message_id,
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+]);
+}
+}
+$photo=$message->photo;
+$video=$message->video;
+$document=$message->document;
+$sticker=$message->sticker;
+$voice=$message->voice;
+$audio=$message->audio;
+$forward =$message->forward_from_chat;
+$c_photo=file_get_contents("data/photo.txt");
+$c_video=file_get_contents("data/video.txt");
+$c_document=file_get_contents("data/document.txt");
+$c_sticker=file_get_contents("data/sticker.txt");
+$c_voice=file_get_contents("data/voice.txt");
+$c_audio=file_get_contents("data/audio.txt");
+$c_forward =file_get_contents("data/audio.txt");
+if($from_id!=$wathq1 and $message->chat->type == 'private' ){
+//الصور
+if($photo and ! $forward){
+if($c_photo=="❌"or $c_photo== null){
+if($estgbal=="on" or $estgbal==null){
+
+bot('sendMessage',[
+'chat_id'=>$yppee,
+'text'=>"رساله من : [$name](tg://user?id=$from_id)
+",
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+'reply_to_message_id'=>$message->reply_to_message->message_id-1,
+]);
+
+$get=bot('forwardMessage',[
+'chat_id'=>$yppee,
+'from_chat_id'=>$chat_id,
+'message_id'=>$message_id
+
+]);
+$msg_id = $get->result->message_id-1;
+
+$from_id_name="$chat_id=$name=$message_id";
+file_put_contents("message/$msg_id.txt","$from_id_name");
+
+$co_m_us=file_get_contents("count/user/$from_id.txt");
+$co=$co_m_us+1;
+file_put_contents("count/user/$from_id.txt","$co");
+
+file_put_contents("count/user/all.txt","$co1");
+
+if($msrd !=null){
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"$msrd..",
+'reply_to_message_id'=>$message_id
+]);
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"تم ارسال الرسالة ساقوم بالرد باقرب وقت إن شاء الله 🌸",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[[['text'=>"قناة التحديثات 𓃠","url"=>"t.me/botatiiii"]]
+]
+])
+]);
+}
+}else{
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"تم ايقاف استقبال الرسائل من قبل مالك البوت ",
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[[['text'=>"قناة التحديثات 𓃠","url"=>"t.me/botatiiii"]]
+]
+])
+]);
+}
+}else{
+
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"عذرا استقبال الصور مغلق ❌",
+'reply_to_message_id'=>$message_id
+]);
+}
+
+}
+//الفيديو
+if($video and ! $forward ){
+if($c_video=="❌"or $c_photo== null){
+if($estgbal=="on" or $estgbal==null){
+bot('se
